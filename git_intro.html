@@ -1,9 +1,179 @@
 <!DOCTYPE html>
 <html>
-    <title>New to Somthing New</title>
-    <header>
-        <body>
-            
-        </body>
-    </header>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Page</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <h1>Feedback Form</h1><br><br>
+
+    <table id="feedback_table">
+        <tr>
+            <th>name</th>
+            <th>Contact</th>
+            <th>rating</th>
+            <th>selectedCourse</th>
+            <th>skills</th>
+            <th>Eligible</th>
+        </tr>
+        <tr>
+
+        </tr>
+
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <form onsubmit="handleSubmit(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Name"><br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" placeholder="phone"><br><br>
+
+        <label for="count">Count:</label>
+        <button onclick="decrease()">-</button>
+        <span id="countDisplay">0</span>
+        <button onclick="increase()">+</button><br><br>
+
+        <label for="rating">Rating:</label><br>
+        <select id="rating" name="rating">
+            <option value="">Select a rating</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select><br><br>
+
+        <label for="course">Selected Course:</label><br>
+        <input type="radio" id="mern" name="course" value="mern"><label for="mern">mern</label><br>
+
+        <input type="radio" id="java" name="course" value="java"><label for="java">Java</label><br>
+
+        <input type="radio" id="python" name="course" value="python"><label for="python">Python</label><br><br>
+
+        <label>Skills:</label><br>
+        <input type="checkbox" id="communication" name="skills" value="communication"><label
+            for="communication">Communication</label><br>
+
+        <input type="checkbox" id="aptitude" name="skills" value="aptitude"><label for="aptitude">aptitude</label><br>
+
+        <input type="checkbox" id="reasoning" name="skills" value="reasoning"><label
+            for="reasoning">reasoning</label><br>
+
+        <input type="checkbox" id="NO skills" name="skills" value="NO skills"><label for="NO skills">no
+            skills</label><br><br>
+
+        <label for="comments">comments:</label><br>
+        <textarea id="comments" name="comments" placeholder="Write your comments here..."></textarea><br><br>
+
+        <button type="submit">submit</button>
+
+
+    </form>
+
+    <p id="output"></p>
+
+</body>
+
 </html>
+<script>
+    let count = 0
+    const countDisplaY = document.getElementById("countDisplay")
+
+    function decrease() {
+
+        if (count === 0) {
+            count = 0
+        } else {
+            count = count - 1
+        }
+        countDisplaY.innerText = count
+
+    }
+
+    function increase() {
+
+        count = count + 1
+
+        countDisplaY.innerText = count
+
+    }
+
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        const name = document.getElementById("name").value
+        const phone = document.getElementById("phone").value
+        const rating = document.getElementById("rating").value
+        const course = document.querySelector("input[name ='course']:checked").value
+        const comments = document.getElementById("comments").value
+
+        const checkbox = document.querySelectorAll("input[name ='skills']:checked")
+        const seletedskills = []
+        for (let i = 0; i < checkbox.length; i++) {
+            seletedskills.push(checkbox[i].value)
+        }
+
+        const formData = {
+            Name: name,
+            Number: phone,
+            Rating: rating,
+            Course: course,
+            Comments: comments,
+            CheckBox: seletedskills
+
+        }
+
+        const output = document.getElementById("output")
+        output.innerText = `Hi ${name} your rating is ${rating}`
+
+        function isEligible() {
+            return seletedskills.some(item => item === 'aptitude')
+        }
+
+        const table = document.getElementById("feedback_table")
+        const newRow = table.insertRow();
+
+        const nameCell = newRow.insertCell(0)
+        const phoneCell = newRow.insertCell(1)
+        const ratingCell = newRow.insertCell(2)
+        const selectedCourseCell = newRow.insertCell(3)
+        const skillsCell = newRow.insertCell(4)
+        const elegibleCell = newRow.insertCell(5)
+
+
+        nameCell.innerText = name
+        phoneCell.innerText = phone
+        ratingCell.innerText = rating
+        selectedCourseCell.innerText = course
+        skillsCell.innerText = seletedskills
+        elegibleCell.innerText = isEligible()
+        event.target.reset()
+
+    }
+</script>
