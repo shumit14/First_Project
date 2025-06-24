@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -176,4 +176,154 @@
         event.target.reset()
 
     }
-</script>
+</script> -->
+
+
+<!-- to do list try practing -->
+
+
+<!-- git commit
+ git push
+ git merge
+ rebase
+ stage
+ fetch
+ git pull --> 
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clickable Boxes</title>
+  <style>
+    
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: lightgray;
+      border: 10px solid #000000;
+     
+    }
+
+   
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <!-- <div class="box" id="box1" onclick="fillColor('box1','green')"></div>
+    <div class="box" id="box2" onclick="fillColor('box2','red')"></div>
+    <div class="box" id="box3" onclick="fillColor('box3','yellow')"></div>
+    <div class="box" id="box4" onclick="fillColor('box4','blue')"></div> -->
+
+    </div>
+
+    <ul id="list">
+
+    </ul>
+
+ <script>
+
+  const listData = ['first','second','third','fouth']
+  const parentList = document.getElementById("list")
+
+  listData.forEach((item)=>{
+    const list = document.createElement('li')
+    list.innerText = item
+    parentList.appendChild(list)
+  })
+
+const requestBoxes = [
+
+            { id: "box1", color: 'purple' },
+
+            { id: "box2", color: 'red' },
+
+            { id: "box3", color: 'green' },
+
+            { id: "box4", color: 'orange' },
+
+
+        ]
+
+ 
+
+        const containerDiv = document.getElementById("container")
+
+        const para = document.createElement('p')
+
+        para.innerText = "This is a para graph"
+
+        containerDiv.appendChild(para)
+
+ 
+
+        requestBoxes.forEach((item) => {
+
+            const box = document.createElement('div')
+
+            box.className = "box"
+
+            box.id = item.id
+
+            box.onclick = () => fillColor(item.id, item.color)
+
+ 
+
+            containerDiv.appendChild(box)
+
+        })
+
+  let filledBoxes = new Set()
+      function fillColor(id, color) {
+
+            const box = document.getElementById(id)
+
+            box.style.backgroundColor = color
+
+            filledBoxes.add(id)
+
+            console.log(filledBoxes)
+
+            if(filledBoxes.size === requestBoxes.length){
+
+                removeColor(id)
+
+            }
+
+        }
+
+        
+
+        // Third Stage
+
+        function removeColor (id){
+
+            const setBoxes = [...filledBoxes]
+
+            console.log(setBoxes)
+
+            for(let i = 1; i<=requestBoxes.length; i++){
+
+                setTimeout(()=>{
+
+                    const box = document.getElementById(setBoxes.pop())
+
+                    box.style.backgroundColor = ""
+
+                },2000 * i)
+
+            }
+
+            filledBoxes = new Set()
+
+        }
+
+      
+  </script>
+
+</body>
+</html>
